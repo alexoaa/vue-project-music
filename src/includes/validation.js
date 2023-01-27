@@ -1,5 +1,7 @@
 // https://www.udemy.com/course/complete-vue-js-developer-zero-to-mastery-vuex/learn/lecture/25046764#content
 
+// https://vee-validate.logaretm.com/v4/
+
 import {
   Form as VeeForm,
   Field as VeeField,
@@ -70,6 +72,10 @@ export default {
 
         return errorMessage;
       },
+      validateOnBlur: true,
+      validateOnChange: true,
+      validateOnInput: false,
+      validateOnModelUpdate: true,
     });
   },
 };
