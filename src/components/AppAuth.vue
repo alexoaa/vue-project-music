@@ -58,167 +58,14 @@
             </li>
           </ul>
 
+          <!-- The submit event will do 2 things, it'll enforce the validation before running the function we have in the expression. If the validation fails in any of the fields, it will not run the expression.
+          Secondly, it'll prevent the page from refreshing when the form is submitted. -->
+
           <!-- Login Form -->
-          <form v-show="tab === 'login'">
-            <!-- Email -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Email</label>
-              <input
-                type="email"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Email"
-              />
-            </div>
-            <!-- Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Password</label>
-              <input
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
-            </div>
-            <button
-              type="submit"
-              class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-            >
-              Submit
-            </button>
-          </form>
+          <AppLoginForm v-if="tab === 'login'"></AppLoginForm>
 
           <!-- Registration Form -->
-          <div
-            class="text-white text-center font-bold p-4 rounded mb-4"
-            v-if="reg_show_alert"
-            :class="reg_alert_variant"
-          >
-            {{ reg_alert_msg }}
-          </div>
-          <vee-form
-            v-show="tab === 'register'"
-            :validation-schema="schema"
-            @submit="register"
-            :initial-values="userData"
-            v-if="!reg_in_submission"
-          >
-            <!-- Name -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Name</label>
-              <vee-field
-                type="text"
-                name="name"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Name"
-              />
-              <ErrorMessage class="text-red-600" name="name" />
-            </div>
-            <!-- Email -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Email</label>
-              <vee-field
-                type="email"
-                name="email"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Email"
-              />
-              <ErrorMessage class="text-red-600" name="email" />
-            </div>
-            <!-- Age -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Age</label>
-              <vee-field
-                type="number"
-                name="age"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-              />
-              <ErrorMessage class="text-red-600" name="age" />
-            </div>
-            <!-- Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Password</label>
-              <vee-field
-                name="password"
-                :bails="false"
-                v-slot="{ field, errors }"
-              >
-                <input
-                  class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                  placeholder="Password"
-                  .type="passFieldType"
-                  v-bind="field"
-                />
-                <div class="text-red-600" v-for="error in errors" :key="error">
-                  {{ error }}
-                </div>
-              </vee-field>
-              <div id="togglePass" class="w-6/12">
-                <input
-                  type="checkbox"
-                  name="togglePass"
-                  id="togglePass"
-                  class="mr-2.5"
-                  @click="togglePass()"
-                />
-                <label class="text-xs">Show password</label>
-              </div>
-              <!-- <ErrorMessage class="text-red-600" name="password" /> -->
-            </div>
-            <!-- Confirm Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Confirm Password</label>
-              <vee-field
-                .type="confPassFieldType"
-                name="confirm_password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Confirm Password"
-              />
-              <div id="togglePassConf" class="w-6/12">
-                <input
-                  type="checkbox"
-                  name="togglePassConf"
-                  id="togglePassConf"
-                  class="mr-2.5"
-                  @click="togglePassConf"
-                />
-                <label class="text-xs">Show password</label>
-              </div>
-              <ErrorMessage class="text-red-600" name="confirm_password" />
-            </div>
-            <!-- Country -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Country</label>
-              <vee-field
-                as="select"
-                name="country"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-              >
-                <option value="USA">USA</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Germany">Germany</option>
-                <option value="Antarctica">Antartica</option>
-              </vee-field>
-              <ErrorMessage class="text-red-600" name="country" />
-            </div>
-            <!-- TOS -->
-            <div class="mb-3 pl-6">
-              <vee-field
-                type="checkbox"
-                name="tos"
-                value="1"
-                class="w-4 h-4 float-left -ml-6 mt-1 rounded"
-              />
-              <label class="block">Accept terms of service</label>
-              <ErrorMessage class="text-red-600" name="tos" />
-            </div>
-            <button
-              type="submit"
-              class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-              :disabled="reg_in_submission"
-              :class="btn_disabled_in_submission"
-            >
-              Submit
-            </button>
-          </vee-form>
+          <AppRegisterForm v-if="tab === 'register'"></AppRegisterForm>
         </div>
       </div>
     </div>
@@ -228,31 +75,18 @@
 <script>
 import { mapState, mapWritableState } from "pinia";
 import useModalStore from "@/stores/modal";
+import AppLoginForm from "./LoginForm.vue";
+import AppRegisterForm from "./RegisterForm.vue";
 
 export default {
   name: "AppAuth",
+  components: {
+    AppLoginForm,
+    AppRegisterForm,
+  },
   data() {
     return {
       tab: "login",
-      schema: {
-        name: "required|min:3|max:100|alphaSpaces",
-        email: "required|email|min:3|max:100",
-        age: "required|integer|min_value:18|max_value:100",
-        password: "required|min:9|max:100|excluded:password|alphaDash",
-        confirm_password: "passwords_mismatch:@password",
-        country: "required|country_excluded:Antarctica",
-        tos: "tos",
-      },
-      passFieldType: "password",
-      confPassFieldType: "password",
-      userData: {
-        country: "Mexico",
-      },
-      reg_in_submission: false,
-      reg_show_alert: false,
-      reg_alert_variant: "bg-blue-500",
-      reg_alert_msg: "Please wait! Your account is being created.",
-      btn_disabled_in_submission: "",
     };
   },
   computed: {
@@ -263,28 +97,7 @@ export default {
       return !this.modalVisibility ? "hidden" : "";
     },
   },
-  methods: {
-    togglePass() {
-      this.passFieldType =
-        this.passFieldType === "password" ? "text" : "password";
-    },
-    togglePassConf() {
-      this.confPassFieldType =
-        this.confPassFieldType === "text" ? "password" : "text";
-    },
-    register(values) {
-      this.reg_show_alert = true;
-      this.reg_in_submission = true;
-      this.reg_alert_variant = "bg-blue-500";
-      this.reg_alert_msg = "Please wait! Your account is being created.";
-
-      this.reg_alert_variant = "bg-green-500";
-      this.reg_alert_msg = "Success! Your account has been created.";
-      this.btn_disabled_in_submission =
-        "bg-gray-500 hover:bg-gray-500 hover:cursor-not-allowed";
-      console.log(values);
-    },
-  },
+  methods: {},
 };
 </script>
 <!-- Multiple options for interafcting with the state

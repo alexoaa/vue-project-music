@@ -51,14 +51,14 @@ export default {
     configure({
       generateMessage: (ctx) => {
         const errorMessages = {
-          required: `The field ${ctx.field} is required.`,
-          min: `The field ${ctx.field} is too short.`,
-          max: `The field ${ctx.field} is too long.`,
-          alphaSpaces: `The field ${ctx.field} may only contain alphabetic characters and spaces.`,
-          alphaDash: `The field ${ctx.field} may only contain alphabetic characters numbers, dashes, or underscores.`,
-          email: `The field ${ctx.field} must be a valid email.`,
-          min_value: `The field ${ctx.field} is too low.`,
-          max_value: `The field ${ctx.field} is too high.`,
+          required: `The ${ctx.field} is required.`,
+          min: `The ${ctx.field} is too short.`,
+          max: `The ${ctx.field} is too long.`,
+          alphaSpaces: `The ${ctx.field} may only contain alphabetic characters and spaces.`,
+          alphaDash: `The ${ctx.field} may only contain alphabetic characters numbers, dashes, or underscores.`,
+          email: `The ${ctx.field} must be a valid email.`,
+          min_value: `The ${ctx.field} is too low.`,
+          max_value: `The ${ctx.field} is too high.`,
           integer: `The value needs to be a number.`,
           excluded: `You are not allowed to use this value for the field ${ctx.field}.`,
           country_excluded: `Due to restrictions, we do not accept users from this location.`,
