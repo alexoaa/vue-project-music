@@ -127,7 +127,15 @@
   </vee-form>
 </template>
 
+<!-- Webpack will replace the @ character in import statements with the path to the src directory.
+There are two benefits to this. 
+It saves you from having to move up multiple directories if your files are nested.
+Secondly, you don't have to update the import statements in the file if you move it to another directory, the import statements will still be able to import the files you want. -->
+
 <script>
+import { createUser, addDataToDB } from "@/includes/firebase";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+
 export default {
   name: "RegisterForm",
   data() {
@@ -154,17 +162,50 @@ export default {
     };
   },
   methods: {
-    register(values) {
+    async register(values) {
       this.reg_show_alert = true;
-      this.reg_in_submission = true;
       this.reg_alert_variant = "bg-blue-500";
       this.reg_alert_msg = "Please wait! Your account is being created.";
 
+      let userCredentials = null;
+      let userData = null;
+
+      try {
+        userCredentials = await createUser(values.email, values.password);
+      } catch (error) {
+        this.reg_in_submission = false;
+        this.reg_alert_variant = "bg-red-500";
+
+        if (error.code === "auth/email-already-in-use") {
+          this.reg_alert_msg = "There is already an account with that email.";
+          return;
+        }
+        this.reg_alert_msg = "An unexpected error occured. Please try later.";
+        return;
+      }
+
+      try {
+        userData = await addDataToDB(
+          values.name,
+          values.email,
+          values.age,
+          values.country
+        );
+      } catch (error) {
+        console.log(error);
+        this.reg_in_submission = false;
+        this.reg_alert_variant = "bg-red-500";
+        this.reg_alert_msg = "An unexpected error occured. Please try later.";
+        return;
+      }
+
+      this.reg_in_submission = true;
       this.reg_alert_variant = "bg-green-500";
       this.reg_alert_msg = "Success! Your account has been created.";
       this.btn_disabled_in_submission =
         "bg-gray-500 hover:bg-gray-500 hover:cursor-not-allowed";
-      console.log(values);
+
+      console.log(userCredentials, userData);
     },
     togglePass() {
       this.passFieldType =
