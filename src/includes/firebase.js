@@ -5,6 +5,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
@@ -51,8 +52,19 @@ function updateUserProfile(user, displayName, photoURL) {
   });
 }
 
+// https://firebase.google.com/docs/auth/web/password-auth
+function authenticateUser(email, password) {
+  return signInWithEmailAndPassword(auth, email, password);
+}
 // Export references / functions
-export { app, auth, createUser, addDataToDB, updateUserProfile };
+export {
+  app,
+  auth,
+  createUser,
+  addDataToDB,
+  updateUserProfile,
+  authenticateUser,
+};
 
 /* A bucket is a physical location where your data is stored. You can create multiple buckets if you are on a premium firebase plan.
 Collections are objects in Firestore, records in a collection is the data stored in the DB

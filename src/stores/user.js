@@ -3,6 +3,7 @@ import {
   createUser,
   addDataToDB,
   updateUserProfile,
+  authenticateUser,
 } from "@/includes/firebase";
 
 export default defineStore("user", {
@@ -38,6 +39,10 @@ export default defineStore("user", {
       //* Updating state
       this.userLoggedIn = true;
     },
-    async authenticate(values) {},
+    async authenticate(values) {
+      await authenticateUser(values.email, values.password);
+
+      this.userLoggedIn = true;
+    },
   },
 });
