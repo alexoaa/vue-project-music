@@ -38,5 +38,6 @@ export default defineStore("user", {
       //* Updating state
       this.userLoggedIn = true;
     },
+    async authenticate(values) {},
   },
 });

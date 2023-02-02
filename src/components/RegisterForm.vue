@@ -166,6 +166,7 @@ export default {
       createUser: "register",
     }),
     async register(values) {
+      // Letting the user know we are registering their account
       this.reg_show_alert = true;
       this.reg_alert_variant = "bg-blue-500";
       this.reg_alert_msg = "Please wait! Your account is being created.";
