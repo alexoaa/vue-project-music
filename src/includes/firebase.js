@@ -1,8 +1,12 @@
 // https://www.udemy.com/course/complete-vue-js-developer-zero-to-mastery-vuex/learn/lecture/25063616#questions
 
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCp4FKw7G74fwnCxnSLu6F94c_c4bUoIuI",
@@ -29,11 +33,10 @@ const db = getFirestore(app);
 const usersCollection = "users";
 
 // Callback to avoid importing functions on the components from @firebase/firestore
-function addDataToDB(name, email, age, country) {
-  console.log(collection(db, usersCollection));
+function addDataToDB(uid, name, email, age, country) {
+  // Insert document to the collection with the uid to connect Auth w/ DB
 
-  // Insert document to the collection
-  return addDoc(collection(db, usersCollection), {
+  return setDoc(doc(db, usersCollection, uid), {
     name,
     email,
     age,
@@ -41,8 +44,15 @@ function addDataToDB(name, email, age, country) {
   });
 }
 
+function updateUserProfile(user, displayName, photoURL) {
+  return updateProfile(user, {
+    displayName,
+    photoURL,
+  });
+}
+
 // Export references / functions
-export { app, createUser, addDataToDB };
+export { app, auth, createUser, addDataToDB, updateUserProfile };
 
 /* A bucket is a physical location where your data is stored. You can create multiple buckets if you are on a premium firebase plan.
 Collections are objects in Firestore, records in a collection is the data stored in the DB
