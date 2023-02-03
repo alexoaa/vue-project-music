@@ -195,6 +195,9 @@ export default {
       this.reg_alert_msg = "Success! Your account has been created.";
       this.btn_disabled_in_submission =
         "bg-gray-500 hover:bg-gray-500 hover:cursor-not-allowed";
+
+      //We'll refresh the page, this also will let us know the authentication state persists across page refreshes
+      window.location.reload();
     },
     togglePass() {
       this.passFieldType =

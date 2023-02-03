@@ -4,6 +4,7 @@ import {
   addDataToDB,
   updateUserProfile,
   authenticateUser,
+  signOutUser,
 } from "@/includes/firebase";
 
 export default defineStore("user", {
@@ -43,6 +44,12 @@ export default defineStore("user", {
       await authenticateUser(values.email, values.password);
 
       this.userLoggedIn = true;
+    },
+    async signout() {
+      await signOutUser();
+
+      this.userLoggedIn = false;
+      window.location.reload();
     },
   },
 });

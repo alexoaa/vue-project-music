@@ -86,6 +86,9 @@ export default {
         this.reg_alert_msg = "Invalid login details.";
         return;
       }
+
+      //We'll refresh the page, this also will let us know the authentication state persists across page refreshes
+      window.location.reload();
     },
   },
 };

@@ -56,6 +56,12 @@ function updateUserProfile(user, displayName, photoURL) {
 function authenticateUser(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
+
+// Signout function
+function signOutUser() {
+  return auth.signOut();
+}
+
 // Export references / functions
 export {
   app,
@@ -64,6 +70,7 @@ export {
   addDataToDB,
   updateUserProfile,
   authenticateUser,
+  signOutUser,
 };
 
 /* A bucket is a physical location where your data is stored. You can create multiple buckets if you are on a premium firebase plan.
