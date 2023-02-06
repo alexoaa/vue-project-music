@@ -62,7 +62,6 @@ export default {
     ...mapWritableState(useUserStore, ["userLoggedIn"]),
   },
   created() {
-    console.log(auth.currentUser);
     console.log(auth);
     if (auth.currentUser) {
       this.userLoggedIn = true;

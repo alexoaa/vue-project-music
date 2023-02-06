@@ -179,15 +179,14 @@
 </template>
 
 <script>
-import useUserStore from "@/stores/user";
+// import useUserStore from "@/stores/user";
 
 export default {
   name: "AppManage",
-  beforeRouteEnter(to, from, next) {
-    const store = useUserStore().userLoggedIn;
-    console.log(store.userLoggedIn);
-    if (!store.userLoggedIn) next({ name: "home" });
-    else next();
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   const store = useUserStore().userLoggedIn;
+  //   if (!store) next({ name: "home" });
+  //   else next();
+  // },
 };
 </script>
