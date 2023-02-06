@@ -177,3 +177,17 @@
     </div>
   </section>
 </template>
+
+<script>
+import useUserStore from "@/stores/user";
+
+export default {
+  name: "AppManage",
+  beforeRouteEnter(to, from, next) {
+    const store = useUserStore().userLoggedIn;
+    console.log(store.userLoggedIn);
+    if (!store.userLoggedIn) next({ name: "home" });
+    else next();
+  },
+};
+</script>
